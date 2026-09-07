@@ -15,3 +15,9 @@ Room invitation keys are random 256-bit capabilities in the URL fragment, sent t
 Generated art was prepared as an apartment background and eight transparent character poses. The sound toggle enables a locally synthesized music-box melody when Music box is on.
 
 Validation: API integration tests and TypeScript passed. Broad browser testing was not requested. The optional WebMCP action is feature-detected; no supported WebMCP validation context was available, so its browser registration has not been verified.
+
+## AI chat
+
+Click Huzaifa or the chat bar to talk to clearly labeled AI Huzaifa. Gemini 3.5 Flash-Lite uses minimal thinking, a 192-output-token cap, and only the last six messages (500 characters each). The server stores the last 60 messages per room, rejects duplicate sends, and limits the site to 100 attempts per UTC day. The Google API key is held in a hosting secret, never in client code. `.env` and `.dev.vars` are ignored local secret files. Provider free quotas and billing are controlled by the Google account; the app does not enable a paid plan.
+
+`node --experimental-strip-types tests/chat-api.mjs` checks an actual Gemini reply, persistence, duplicate suppression, room isolation, and context limits. This test passed. Broad browser UI testing was not requested.

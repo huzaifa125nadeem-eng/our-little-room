@@ -1,0 +1,12 @@
+import assert from 'node:assert/strict';
+import {chatPayload} from '../lib/chat.ts';
+const context=Array.from({length:20},(_,i)=>({role:i%2?'model':'user',text:'x'.repeat(800)}));const p=chatPayload(context,'hi');assert.equal(p.contents.length,7);assert.equal(p.contents[0].parts[0].text.length,500);assert.equal(p.generationConfig.maxOutputTokens,192);assert.ok(p.systemInstruction.parts[0].text.includes('meri janu'));
+const id=crypto.randomUUID().replaceAll('-','').repeat(2),headers={'x-room-key':id,'content-type':'application/json'};const url='http://localhost:3000/api/chat';
+let r=await fetch(url,{headers});assert.equal(r.status,200);assert.equal((await r.json()).configured,true);
+const body={text:'Hi, I am Rabia. Say a short hello using jaan.',requestId:crypto.randomUUID()};
+r=await fetch(url,{method:'POST',headers,body:JSON.stringify(body)});const result=await r.json();assert.equal(r.status,200,JSON.stringify(result));assert.equal(result.messages.length,2);assert.equal(result.messages[1].role,'model');assert.ok(result.messages[1].text.length);console.log('Live reply:',result.messages[1].text);
+r=await fetch(url,{headers});assert.deepEqual((await r.json()).messages,result.messages);
+r=await fetch(url,{method:'POST',headers,body:JSON.stringify(body)});assert.deepEqual((await r.json()).messages,result.messages);
+r=await fetch(url,{method:'POST',headers,body:JSON.stringify({...body,text:''})});assert.equal(r.status,400);
+r=await fetch(url,{headers:{'x-room-key':'c'.repeat(64)}});assert.equal((await r.json()).messages.length,0);
+console.log('PASS: real Gemini reply, saved history, duplicate suppression, invalid input, room isolation, context and output limits.');

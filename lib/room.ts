@@ -1,6 +1,6 @@
 export type Person = 'boy' | 'girl';
 export type Room = { lights:boolean; fairy:boolean; rain:boolean; music:boolean; candles:boolean; tea:boolean; plant:number; mode:string; boy:{x:number;y:number}; girl:{x:number;y:number}; names:{boy:string;girl:string}; notes:{text:string;by:string;at:number}[]; memories:{text:string;at:number}[]; updated:number; revision:number };
-export const initialRoom:Room = {lights:true,fairy:true,rain:false,music:false,candles:false,tea:false,plant:0,mode:'idle',boy:{x:48,y:66},girl:{x:57,y:66},names:{boy:'Him',girl:'Her'},notes:[],memories:[],updated:0,revision:0};
+export const initialRoom:Room = {lights:true,fairy:true,rain:false,music:false,candles:false,tea:false,plant:0,mode:'idle',boy:{x:48,y:66},girl:{x:57,y:66},names:{boy:'Huzaifa',girl:'Rabia'},notes:[],memories:[],updated:0,revision:0};
 export const actions=['hug','kiss','cuddle','dance','sleep','wake','lights','fairy','rain','music','candles','tea','plant','move','note','names'];
 export function changeRoom(old:Room, action:string, payload:any, person:Person):Room {
  const s:Room=structuredClone(old); let memory='';
@@ -20,4 +20,7 @@ export function changeRoom(old:Room, action:string, payload:any, person:Person):
  if(memory)s.memories=[{text:memory,at:Date.now()},...s.memories].slice(0,40);
  s.updated=Date.now();s.revision=old.revision+1;return s;
 }
+
+
+export function normalizeRoom(s:Room):Room {if(s.names.boy==='Him')s.names.boy='Huzaifa';if(s.names.girl==='Her')s.names.girl='Rabia';return s;}
 
