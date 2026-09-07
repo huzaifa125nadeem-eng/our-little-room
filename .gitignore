@@ -41,3 +41,6 @@ next-env.d.ts
 !.env.example
 /.openai/
 /tsconfig.tsbuildinfo
+
+# generated asset import metadata
+*.import

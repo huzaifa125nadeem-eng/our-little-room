@@ -11,7 +11,7 @@ export function changeRoom(old:Room, action:string, payload:any, person:Person):
  else if(action==='names'){for(const p of ['boy','girl'] as const){const v=String(payload?.[p]??'').trim();if(!v||v.length>24)throw Error('Names must be 1–24 characters.');s.names[p]=v;}}
  else if(['hug','kiss','cuddle','dance','sleep','wake'].includes(action)){
  s.mode=action==='wake'?'idle':action;
- const points:Record<string,number[]>={hug:[48,66,53,66],kiss:[49,66,53,66],cuddle:[22,64,28,66],dance:[46,68,55,68],sleep:[66,44,73,46],wake:[48,66,57,66]};
+ const points:Record<string,number[]>={hug:[47.5,66,53.5,66],kiss:[49.5,66,52.5,65.6],cuddle:[22,64,28,66],dance:[46,68,55,68],sleep:[66,44,73,46],wake:[48,66,57,66]};
  const p=points[action];s.boy={x:p[0],y:p[1]};s.girl={x:p[2],y:p[3]};
  if(action==='sleep')s.lights=false;
  if(action==='wake')s.lights=true;
