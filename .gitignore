@@ -39,3 +39,5 @@ next-env.d.ts
 
 .dev.vars*
 !.env.example
+/.openai/
+/tsconfig.tsbuildinfo

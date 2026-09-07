@@ -1,0 +1,12 @@
+{
+  // `npm run build` generates the deployable config in dist/server/wrangler.json.
+  // Set CLOUDFLARE_D1_DATABASE_ID in Cloudflare Builds to your D1 database ID.
+  "name": "our-little-room",
+  "compatibility_date": "2026-09-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "d1_databases": [{
+    "binding": "DB",
+    "database_name": "our-little-room-db",
+    "database_id": "YOUR_D1_DATABASE_ID"
+  }]
+}

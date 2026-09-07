@@ -21,3 +21,16 @@ Validation: API integration tests and TypeScript passed. Broad browser testing w
 Click Huzaifa or the chat bar to talk to clearly labeled AI Huzaifa. Gemini 3.5 Flash-Lite uses minimal thinking, a 192-output-token cap, and only the last six messages (500 characters each). The server stores the last 60 messages per room, rejects duplicate sends, and limits the site to 100 attempts per UTC day. The Google API key is held in a hosting secret, never in client code. `.env` and `.dev.vars` are ignored local secret files. Provider free quotas and billing are controlled by the Google account; the app does not enable a paid plan.
 
 `node --experimental-strip-types tests/chat-api.mjs` checks an actual Gemini reply, persistence, duplicate suppression, room isolation, and context limits. This test passed. Broad browser UI testing was not requested.
+
+## Deploy from GitHub to Cloudflare Workers
+
+This repository builds as a standard Cloudflare Worker. Keep the repository private because it is a personal project, though no API key is committed.
+
+1. Create a D1 database named `our-little-room-db` in Cloudflare.
+2. In Cloudflare Workers Builds, connect this repository and set the production branch to `main`.
+3. Set the build variable `CLOUDFLARE_D1_DATABASE_ID` to the D1 database ID.
+4. Use `npm run build` as the build command and `npm run deploy` as the deploy command.
+5. After the first deployment, add the Worker secret `GEMINI_API_KEY` in Settings > Variables and Secrets.
+6. Apply `drizzle/0000_workable_invisible_woman.sql` and `drizzle/0001_chunky_klaw.sql` to the D1 database in order.
+
+The generated deployment config is `dist/server/wrangler.json`. The Worker name must stay `our-little-room`, matching the Cloudflare project name.
