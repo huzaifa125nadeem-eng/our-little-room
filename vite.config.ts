@@ -2,12 +2,12 @@ import tailwindcss from '@tailwindcss/postcss';
 import vinext from 'vinext';
 import { defineConfig } from 'vite';
 
-const SITE_CREATOR_PLACEHOLDER_DATABASE_ID =
-  '00000000-0000-4000-8000-000000000000';
+const PRODUCTION_DATABASE_ID =
+  '2635e20a-1943-42f7-96a1-b0ec9ff9be30';
 
 const databaseId =
   process.env.CLOUDFLARE_D1_DATABASE_ID ??
-  SITE_CREATOR_PLACEHOLDER_DATABASE_ID;
+  PRODUCTION_DATABASE_ID;
 
 // macOS Seatbelt blocks FSEvents, so Codex previews need polling for HMR.
 const isCodexSeatbeltSandbox = process.env.CODEX_SANDBOX === 'seatbelt';

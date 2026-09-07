@@ -26,11 +26,10 @@ Click Huzaifa or the chat bar to talk to clearly labeled AI Huzaifa. Gemini 3.5 
 
 This repository builds as a standard Cloudflare Worker. Keep the repository private because it is a personal project, though no API key is committed.
 
-1. Create a D1 database named `our-little-room-db` in Cloudflare.
-2. In Cloudflare Workers Builds, connect this repository and set the production branch to `main`.
-3. Set the build variable `CLOUDFLARE_D1_DATABASE_ID` to the D1 database ID.
-4. Use `npm run build` as the build command and `npm run deploy` as the deploy command.
-5. After the first deployment, add the Worker secret `GEMINI_API_KEY` in Settings > Variables and Secrets.
-6. Apply `drizzle/0000_workable_invisible_woman.sql` and `drizzle/0001_chunky_klaw.sql` to the D1 database in order.
+1. In Cloudflare Workers Builds, connect this repository and set the production branch to `main`.
+2. Use `npm run build` as the build command and `npm run deploy` as the deploy command.
+3. Add the Worker secret `GEMINI_API_KEY` in Settings > Variables and Secrets.
+
+The production D1 database is already configured and its migrations have been applied. `CLOUDFLARE_D1_DATABASE_ID` remains available as a build-time override for a different Cloudflare account.
 
 The generated deployment config is `dist/server/wrangler.json`. The Worker name must stay `our-little-room`, matching the Cloudflare project name.
